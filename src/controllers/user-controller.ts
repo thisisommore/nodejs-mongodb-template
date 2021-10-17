@@ -1,5 +1,4 @@
 import { RequestHandler } from "express";
-import { validationResult } from "express-validator";
 import jsonwebtoken from "jsonwebtoken";
 import { Document } from "mongoose";
 import User, { IUser } from "../models/user";
@@ -11,16 +10,6 @@ interface IReqBody {
 }
 
 export const loginIn: RequestHandler = async (req, res) => {
-  const errors = validationResult(req);
-  if (!errors.isEmpty()) {
-    res
-      .status(442)
-      .send(
-        "Values are not valid, please check your input fields and try again"
-      );
-
-    return;
-  }
   const { username, password } = req.body as IReqBody;
   let existingUser: (IUser & Document) | null;
   try {
@@ -49,16 +38,6 @@ export const loginIn: RequestHandler = async (req, res) => {
 };
 
 export const register: RequestHandler = async (req, res) => {
-  const errors = validationResult(req);
-  if (!errors.isEmpty()) {
-    res
-      .status(442)
-      .send(
-        "Values are not valid, please check your input fields and try again"
-      );
-
-    return;
-  }
   const { username, password } = req.body as IReqBody;
   let existingUser: (IUser & Document) | null;
   try {
